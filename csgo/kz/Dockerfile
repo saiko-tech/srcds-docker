@@ -4,9 +4,9 @@ ENV GAME=csgo
 
 WORKDIR /home/steam/sourcemod/addons/sourcemod
 
-RUN wget -q https://github.com/Maxximou5/csgo-deathmatch/releases/download/v2.0.9/deathmatch.zip \
-    && unzip deathmatch.zip \
-    && rm deathmatch.zip
+RUN wget -qO kz.zip https://bitbucket.org/kztimerglobalteam/kztimerglobal/downloads/1.104_Full.zip \
+    && unzip kz.zip \
+    && rm kz.zip
 
 WORKDIR /home/steam
 

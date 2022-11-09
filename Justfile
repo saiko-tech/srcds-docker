@@ -12,4 +12,10 @@ sourcemod: srcds
 csgo-dm: sourcemod
   cd csgo/deathmatch && docker build -t {{org}}/csgo-deathmatch .
 
-all: csgo-dm
+csgo-kz: sourcemod
+  cd csgo/kz && docker build -t {{org}}/csgo-kz .
+
+csgo-surf: sourcemod
+  cd csgo/surf && docker build -t {{org}}/csgo-surf .
+
+all: csgo-dm csgo-kz csgo-surf
