@@ -5,7 +5,7 @@ services:
     image: saiko-tech/csgo-kz
     volumes:
       - type: bind
-        source: /tmp/csgo/kz/mnt
+        source: ${GAME_DIR}
         target: /game
     network_mode: host
     entrypoint: [ "/bin/sh", "-c", "/game/srcds_run -game csgo -port 27017 -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2"]

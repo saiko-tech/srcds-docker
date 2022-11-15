@@ -14,6 +14,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
     locales \
     unzip \
     net-tools \
+    expect \
     steamcmd \
     && ln -s /usr/games/steamcmd /usr/bin/steamcmd \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
