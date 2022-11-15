@@ -15,9 +15,9 @@ sudo chown 1000:1000 "$CSGO_DS_BASE"
 
 ```terminal
 docker run -it \
-       -v "$CSGO_DS_BASE:/csgo-ds" \
+       -v "$CSGO_DS_BASE:/game" \
        saiko-tech/steamcmd \
-       +force_install_dir /csgo-ds +login "$STEAM_USERNAME" "$STEAM_PASSWORD" +app_update 740 validate +quit
+       +force_install_dir /game +login "$STEAM_USERNAME" "$STEAM_PASSWORD" +app_update 740 validate +quit
 ```
 
 ### Run CS:GO Dedicated Server
@@ -25,7 +25,7 @@ docker run -it \
 #### Deathmatch
 
 ```terminal
-export CSGO_DM_DIR=/tmp/csgo-dm
+export CSGO_DM_DIR=/tmp/csgo/dm
 mkdir -p "$CSGO_DM_DIR/upper" "$CSGO_DM_DIR/work" "$CSGO_DM_DIR/mnt"
 sudo chown -R 1000:1000 "$CSGO_DM_DIR"
 sudo mount -t overlay overlay -o "lowerdir=$CSGO_DS_BASE,upperdir=$CSGO_DM_DIR/upper,workdir=$CSGO_DM_DIR/work" "$CSGO_DM_DIR/mnt"
@@ -39,10 +39,10 @@ docker run -it --net=host \
 #### Surf
 
 ```terminal
-export CSGO_SURF_DIR=/tmp/csgo-surf
+export CSGO_SURF_DIR=/tmp/csgo/surf
 mkdir -p "$CSGO_SURF_DIR/upper" "$CSGO_SURF_DIR/work" "$CSGO_SURF_DIR/mnt"
 sudo chown -R 1000:1000 "$CSGO_SURF_DIR"
-sudo mount -t overlay overlay -o "lowerdir=$CSGO_SURF_BASE,upperdir=$CSGO_SURF_DIR/upper,workdir=$CSGO_SURF_DIR/work" "$CSGO_SURF_DIR/mnt"
+sudo mount -t overlay overlay -o "lowerdir=$CSGO_DS_BASE,upperdir=$CSGO_SURF_DIR/upper,workdir=$CSGO_SURF_DIR/work" "$CSGO_SURF_DIR/mnt"
 
 pushd csgo/surf
 ./run_dev_db.sh

@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  mariadb:
+    image: mariadb:10.9
+    container_name: surftimer-db
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - surf-db:/var/lib/mysql
+      - ./csgo/surf/surftimer.sql:/docker-entrypoint-initdb.d/1.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: surftimer123
+      MYSQL_DATABASE: surftimer
+    ports:
+      - 3306:3306
+  csgo-surf:
+    depends_on:
+      - "mariadb"
+    build: csgo/surf
+    image: saiko-tech/csgo-surf
+    volumes:
+      - type: bind
+        source: /tmp/csgo/surf/mnt
+        target: /game
+    network_mode: host
+    environment:
+      DB_HOST: 127.0.0.1
+      DB_PORT: '3306'
+      DB_SCHEMA: surftimer
+      DB_USER: root
+      DB_PASS: surftimer123
+    entrypoint: [ "/bin/sh", "-c", "/home/steam/start_srcds_surf.sh -game csgo -port 27018 -console -usercon -authkey 64A34280C23DC11073564B022020A46E +game_type 0 +game_mode 0 +host_workshop_collection 1561971060 +workshop_start_map 607186931" ]
+
+volumes:
+  surf-db: {}

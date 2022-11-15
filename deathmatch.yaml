@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  csgo-dm:
+    build: csgo/deathmatch
+    image: saiko-tech/csgo-deathmatch
+    volumes:
+      - type: bind
+        source: /tmp/csgo/dm/mnt
+        target: /game
+    network_mode: host
+    entrypoint: [ "/bin/sh", "-c", "/home/steam/start_srcds.sh -debug -game csgo -port 27016 -console -usercon +game_type 0 +game_mode 0 +mapgroup mg_active +map de_dust2"]
